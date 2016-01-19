@@ -2,11 +2,11 @@
 
 ## ToDo's
 * implement the Login
-	* login
-	* send the two factor code
-	* cancel the authentication update
-	* extract the hash funktion from the Fifa - WebApp
-	* load and save cookie
+	* ~login~
+	* ~send the two factor code~
+	* ~cancel the authentication update~
+	* ~extract the hash funktion from the Fifa - WebApp~
+	* ~get/set cookieJar~
 * implement the API requests
 	* get credits
 	* get tradepile

@@ -1,2 +1,1 @@
-# fut-api
-Ultimate Team API - FIFA 16
+# fut-api - FIFA 16

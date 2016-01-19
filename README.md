@@ -7,6 +7,7 @@
 	* ~~cancel the authentication update~~
 	* ~~extract the hash funktion from the Fifa - WebApp~~
 	* ~~get/set cookieJar~~
+	* check if secret is required
 * implement the API requests
 	* get credits
 	* get tradepile

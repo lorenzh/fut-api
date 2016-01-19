@@ -1,0 +1,30 @@
+{
+  "name": "fut-api",
+  "version": "0.0.0",
+  "description": "fifa 16 web-app api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lorenzh/fut-api.git"
+  },
+  "keywords": [
+    "fifa",
+    "16",
+    "ultimate-team",
+    "api",
+    "fut"
+  ],
+  "author": "lorenzh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lorenzh/fut-api/issues"
+  },
+  "homepage": "https://github.com/lorenzh/fut-api#readme",
+  "dependencies": {
+    "request": "2.67.0",
+    "tough-cookie": "2.2.1"
+  }
+}

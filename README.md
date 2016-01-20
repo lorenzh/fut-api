@@ -9,10 +9,10 @@
 	* ~~get/set cookieJar~~
 	* check if secret is required
 * implement the API requests
-	* get credits
-	* get tradepile
-	* get watchlist
-	* get purchased items
+	* ~~get credits~~
+	* ~~get tradepile~~
+	* ~~get watchlist~~
+	* ~~get purchased items~~
 	* transfermarket search
 		* search player 
 		* search consumable
@@ -20,7 +20,7 @@
 		* search club items
 	* place bid
 	* list on transfermarket
-	* relist items
+	* ~~relist items~~
 	* get transfertiems update
 	* send items to watchlist
 	* send items to tradepile

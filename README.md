@@ -31,3 +31,24 @@
 	* calculate next lower price
 	* calculate next higher price
 	* get baseId
+	
+
+## Usage
+### Login
+
+    var futapi = require("fut-api");
+
+	function twoFactorCodeCb(next){
+		/* send your authentication code with the "next" method */
+		next("123456");
+	}
+    
+    var apiClient = new futapi([options]);
+    
+    apiClient.login("username","password","secret", 
+	    twoFactorCodeCb,
+	    function(error,response){
+		    if(error) return console.log("Unable to login.");
+		    console.log("logged in.");
+	    });
+

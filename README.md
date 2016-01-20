@@ -1,5 +1,7 @@
 # fut-api - FIFA 16
 
+[![NPM](https://nodei.co/npm/fut-api.png)](https://nodei.co/npm/fut-api/)
+
 ## ToDo's
 * implement the Login
 	* ~~login~~

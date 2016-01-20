@@ -49,16 +49,20 @@ module.exports = function(options){
         loginCb(error);
       else {
         loginResponse = result;
+        loginCb(null, result); 
         
         if(defaultOptions.saveCookie && defaultOptions.saveCookiePath)
         {
             fs.writeFile(defaultOptions.saveCookiePath, 
                 JSON.stringify(login.getCookieJarJSON()), 
                 "utf8", 
-                function(saveError){if(saveError) throw saveError;});
+                function(saveError){
+                    if(saveError) throw saveError;
+                           
+                    });
         }
         
-        loginCb(null, result);        
+        
       }
     });
   };
@@ -79,15 +83,27 @@ module.exports = function(options){
       sendRequest(urls.api.pilesize, cb);
   };
   
-  futApi.prototype.getRelist = function(cb){
-      sendRequest(urls.api.relist, cb);
+  futApi.prototype.relist = function(cb){
+      sendRequest(urls.api.relist,"PUT", cb);
   };
   
-  function sendRequest(url,cb){
-      loginResponse.apiRequest.post(url,function(error, response, body){
-          if(error) return cb(error,null);   
+  function sendRequest(url,xHttpMethod,cb){
+      
+      var validXHttpMethod = ["GET","PUT"];
+      
+      var xhttp = xHttpMethod || "GET" ;
+      xhttp = validXHttpMethod.indexOf(xhttp) >= 0 ? xhttp : "GET";
+            
+      var rcb = cb || xHttpMethod;
+      rcb = utils.isFunction(rcb) ? rcb : function(e,r){};
+      
+      loginResponse.apiRequest.post(url,{
+          headers: { "X-HTTP-Method-Override": xhttp }
+      },function(error, response, body){
+          if(error) return cb(error,null);
+          if(response.statusCode == 404) return cb(new Error(response.statusMessage),null);
           if(utils.isApiMessage(body)) cb(new Error(JSON.stringify(body)), null);
-          cb(null,body);
+          rcb(null,body);
       });
   }
 

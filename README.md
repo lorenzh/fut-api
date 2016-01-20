@@ -44,19 +44,128 @@ var apiClient = new futapi([options]);
 - saveCookiePath - (default: null) path to the cookiejar 
 - loadCookieFromSavePath - (default: false) loads the cookiejar from the saveCookiePath
 
-### Login
+## Login
 ```javascript
     
-	function twoFactorCodeCb(next){
-		/* send your authentication code with the "next" method */
-		next("123456");
-	}
-    
+  function twoFactorCodeCb(next){
+      /* send your authentication code with the "next" method */
+      next("123456");
+  }
+
     
     apiClient.login("username","password","secret", 
-	    twoFactorCodeCb,
-	    function(error,response){
-		    if(error) return console.log("Unable to login.");
-		    console.log("logged in.");
-	    });
+    	twoFactorCodeCb,
+    	function(error,response){
+    	if(error) {
+        	return console.log("Unable to login.");
+        }
+    	console.log("logged in.");
+    });
 ```
+
+## Credits
+
+
+```javascript
+  apiClient.getCredits(function(error, response){ });
+```
+* response: Object
+	* credits: number
+	* bidTokens: ??
+	* currencies: []
+        * name: string
+        * funds: number
+        * finalFunds: number
+	* unopenedPacks: Object
+        * preOrderPacks: number
+        * recoveredPacks: number
+
+
+## Pilesize
+```javascript
+  apiClient.getPilesize(function(error, response){ });
+```
+* response: Object
+    * entries: []
+        * value: number
+        * key: number 
+
+## Tradepile
+```javascript
+  apiClient.getTradepile(function(error, response){ });
+```
+* response: Object
+    * credits: number
+    * currencies: ??
+    * duplicateItemIdList: ??
+    * errorState: ??
+    * auctionInfo: []
+        * bidState: string
+        * buyNowPrice: number
+        * confidenceValue: number
+        * currentBid: number
+        * expires: number
+        * offers: number
+        * sellerEstablished: number
+        * sellerId: number
+        * sellerName: string
+        * startingBid: number
+        * tradeId: number
+        * tradeOwner: boolean
+        * tradeState: string
+        * watched: boolean
+        * itemData: object
+            * assetId: number
+            * assists: number
+            * attributeList: []
+                * index: number
+                * value: number
+            * cardsubtypeid: number
+            * contract: number
+            * discardValue: number
+            * fitness: number
+            * formation: string
+            * id: number
+            * injuryGames: number
+            * injuryType: string
+            * itemState: string
+            * itemType: string
+            * lastSalePrice: number
+            * leagueId: number
+            * lifetimeAssists: number
+            * lifetimeStats: []
+                * index: number
+                * value: number
+            * loyaltyBonus: number
+            * morale: number
+            * nation: number
+            * owners: number
+            * pile: number
+            * playStyle: number
+            * preferredPosition: string
+            * rareflag: number
+            * rating: number
+            * resourceId: number
+            * statsList: []
+                * index: number
+                * value: number
+            * suspension: number
+            * teamid: number
+            * timestamp: number
+            * training: number
+            * untradeable: boolean
+
+## Relist tradepile
+```javascript
+  apiClient.relist(function(error, response){ });
+```
+* response: Object
+    * tradeIdList: []
+        * id: number
+        
+## Watchlist
+```javascript
+  apiClient.getWatchlist(function(error, response){ });
+```
+
+* response -> see tradepile response

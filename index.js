@@ -4,6 +4,7 @@
 
 module.exports = function(options){
   var utils = require("./lib/utils");
+  var urls = require("./lib/urls");
   var fs = require("fs");
   var defaultOptions = {
       saveCookie: false,
@@ -61,6 +62,34 @@ module.exports = function(options){
       }
     });
   };
+  
+  futApi.prototype.getCredits = function(cb){
+      sendRequest(urls.api.credits, cb);
+  };
+  
+  futApi.prototype.getTradepile = function(cb){
+      sendRequest(urls.api.tradepile, cb);
+  };
+  
+  futApi.prototype.getWatchlist = function(cb){
+      sendRequest(urls.api.watchlist, cb);
+  };
+  
+  futApi.prototype.getPilesize = function(cb){
+      sendRequest(urls.api.pilesize, cb);
+  };
+  
+  futApi.prototype.getRelist = function(cb){
+      sendRequest(urls.api.relist, cb);
+  };
+  
+  function sendRequest(url,cb){
+      loginResponse.apiRequest.post(url,function(error, response, body){
+          if(error) return cb(error,null);   
+          if(utils.isApiMessage(body)) cb(new Error(JSON.stringify(body)), null);
+          cb(null,body);
+      });
+  }
 
   return new futApi();
 };

@@ -34,16 +34,23 @@
 	
 
 ## Usage
+### Create a new instance
+```javascript
+var futapi = require("fut-api");
+var apiClient = new futapi([options]);
+```
+#### Options
+- saveCookie - (default: false) stores the cookiejar after login
+- saveCookiePath - (default: null) path to the cookiejar 
+- loadCookieFromSavePath - (default: false) loads the cookiejar from the saveCookiePath
 ### Login
-
-    var futapi = require("fut-api");
-
+```javascript
+    
 	function twoFactorCodeCb(next){
 		/* send your authentication code with the "next" method */
 		next("123456");
 	}
     
-    var apiClient = new futapi([options]);
     
     apiClient.login("username","password","secret", 
 	    twoFactorCodeCb,
@@ -51,4 +58,4 @@
 		    if(error) return console.log("Unable to login.");
 		    console.log("logged in.");
 	    });
-
+```

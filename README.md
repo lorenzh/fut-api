@@ -39,10 +39,11 @@
 var futapi = require("fut-api");
 var apiClient = new futapi([options]);
 ```
-#### Options
+##### Options
 - saveCookie - (default: false) stores the cookiejar after login
 - saveCookiePath - (default: null) path to the cookiejar 
 - loadCookieFromSavePath - (default: false) loads the cookiejar from the saveCookiePath
+
 ### Login
 ```javascript
     

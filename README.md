@@ -9,18 +9,14 @@
 	* ~~cancel the authentication update~~
 	* ~~extract the hash funktion from the Fifa - WebApp~~
 	* ~~get/set cookieJar~~
-	* check if secret is required
+	* ~~check if secret is required~~
 * implement the API requests
 	* ~~get credits~~
 	* ~~get tradepile~~
 	* ~~get watchlist~~
 	* ~~get purchased items~~
-	* transfermarket search - in progress
-		* search player 
-		* search consumable
-		* search employee
-		* search club items
-	* place bid
+	* ~~transfermarket search~~
+	* place bid - in progress
 	* list on transfermarket
 	* ~~relist items~~
 	* get transfertiems update

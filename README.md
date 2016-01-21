@@ -15,7 +15,7 @@
 	* ~~get tradepile~~
 	* ~~get watchlist~~
 	* ~~get purchased items~~
-	* transfermarket search
+	* transfermarket search - in progress
 		* search player 
 		* search consumable
 		* search employee
@@ -27,11 +27,13 @@
 	* send items to watchlist
 	* send items to tradepile
 * basic functions
-	* calculate vaild price
+	* calculate vaild price / is price vaild
 	* calculate next lower price
 	* calculate next higher price
 	* get baseId
-	
+    * get clubname by id
+    * get team name by id
+    * get nation name by id
 
 ## Usage
 ### Create a new instance
@@ -178,8 +180,34 @@ var apiClient = new futapi([options]);
   apiClient.getWatchlist(filter, function(error, response){ });
 ```
 
-* filter: Object
-    * type: string -> values "player" (default:"player")
-    * start: number -> page (default:0)
-    * num: number -> items count (default:16)
+* filter 
+    * searchFilterBase
+        * type: string 		-> player, training, development
+        * start: number 	-> page
+        * num: number 		-> items per page
+        * micr: number		-> min bid
+        * macr: number		-> max bid
+        * minb: number		-> min buy
+        * maxb: number		-> max buy
+        * lev: string		-> bronze, silver, gold
+        
+    * playerSearchFilter extends searchFilterBase
+        * maskedDefId: number -> baseId
+        * rare: string 		-> SP
+        * zone: string 		-> defence, midfield, attacker
+        * pos: string		-> GK, CB, LB, RB, ...
+        * nat: number		-> nationId
+        * leag: number		-> leagueId
+        * team: number		-> teamId
+        * playStyle: number	-> playerStyleId
+        
+    * consumableFilter extends searchFilterBase
+        * cat: string		-> playerTraining, GKTraining, position, playStyle, managerLeagueModifier, contract, fitness, healing
+        
+    * positionChangeSearchFilter extends consumableFilter
+        * pos: string		-> LB-LWB (OLD-NEW)
+        
+    * playerStyleSearchFilter extends consumableFilter
+        * playStyle: number	-> playerStyleId
+    
 * response: -> see tradepile response

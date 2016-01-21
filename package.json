@@ -25,6 +25,7 @@
   "homepage": "https://github.com/lorenzh/fut-api#readme",
   "dependencies": {
     "request": "2.67.0",
-    "tough-cookie": "2.2.1"
+    "tough-cookie": "2.2.1",
+    "underscore": "^1.8.3"
   }
 }

@@ -1,8 +1,8 @@
 /*jslint node: true */
-/* jshint strict: true */
 "use strict";
 
 module.exports = function(options){
+  var __ = require("underscore");
   var utils = require("./lib/utils");
   var urls = require("./lib/urls");
   var fs = require("fs");
@@ -12,7 +12,9 @@ module.exports = function(options){
       loadCookieFromSavePath: false,
       cookieJarJson: null      
   };
-  utils.mergeOptions(defaultOptions,options);
+  
+  defaultOptions = __.extend(defaultOptions, options);
+  
   var login = new (require("./lib/login"))(options);
 
   var loginResponse = {};
@@ -61,8 +63,6 @@ module.exports = function(options){
                            
                     });
         }
-        
-        
       }
     });
   };
@@ -95,7 +95,7 @@ module.exports = function(options){
       xhttp = validXHttpMethod.indexOf(xhttp) >= 0 ? xhttp : "GET";
             
       var rcb = cb || xHttpMethod;
-      rcb = utils.isFunction(rcb) ? rcb : function(e,r){};
+      rcb = __.isFunction(rcb) ? rcb : function(e,r){};
       
       loginResponse.apiRequest.post(url,{
           headers: { "X-HTTP-Method-Override": xhttp }

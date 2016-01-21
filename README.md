@@ -96,7 +96,10 @@ var apiClient = new futapi([options]);
 ```
 * response: Object
     * credits: number
-    * currencies: ??
+    * currencies: []
+        * name: string - values "COINS","POINTS","DRAFT_TOKEN"
+        * funds: number
+        * finalFunds: number
     * duplicateItemIdList: ??
     * errorState: ??
     * auctionInfo: []
@@ -168,4 +171,15 @@ var apiClient = new futapi([options]);
   apiClient.getWatchlist(function(error, response){ });
 ```
 
-* response -> see tradepile response
+* response: -> see tradepile response
+
+## Transfermarket
+```javascript
+  apiClient.getWatchlist(filter, function(error, response){ });
+```
+
+* filter: Object
+    * type: string -> values "player" (default:"player")
+    * start: number -> page (default:0)
+    * num: number -> items count (default:16)
+* response: -> see tradepile response

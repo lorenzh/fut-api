@@ -87,6 +87,27 @@ module.exports = function(options){
       sendRequest(urls.api.relist,"PUT", cb);
   };
   
+  futApi.prototype.search = function(filter,cb){
+      var defaultFilter = {
+          type: "player",
+          start: 0,
+          num: 16
+      };
+      
+      defaultFilter = __.extend(defaultFilter, filter);
+      
+      sendRequest(urls.api.transfermarket + toUrlParameters(defaultFilter), cb);
+  }
+  
+  function toUrlParameters(obj){
+      var str = "";
+      var keys = Object.keys(obj);
+      for(var i = 0; i < keys.length;i++){
+          str += keys[i] + "=" + encodeURI(obj[keys[i]]).replace(/%5B/g, '[').replace(/%5D/g, ']') + "&";
+      }
+      return str.substr(0, str.length - 1);
+  }
+  
   function sendRequest(url,xHttpMethod,cb){
       
       var validXHttpMethod = ["GET","PUT"];

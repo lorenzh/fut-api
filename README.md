@@ -229,3 +229,47 @@ var apiClient = new futapi([options]);
 ```
 * tradeIds: number[] -> tradeId
 * response: -> see tradepile response
+
+## Add to watchlist
+```javascript
+  apiClient.addToWatchlist(tradeId, function(error){ });
+```
+* tradeId: number -> tradeId
+
+## remove from watchlist
+```javascript
+  apiClient.removeFromWatchlist(tradeId, function(error){ });
+```
+* tradeId: number -> tradeId
+
+## send to tradepile
+```javascript
+  apiClient.sendToTradepile(itemDataId, function(error, response){ });
+```
+* itemDataId: number -> itemData.id
+* response: Object
+    * itemData: []
+        * id: number
+        * pile: string
+        * success: boolean
+        
+## send to tradepile
+```javascript
+  apiClient.sendToClub(itemDataId, function(error, response){ });
+```
+* itemDataId: number -> itemData.id
+* response: Object
+    * itemData: []
+        * id: number
+        * pile: string
+        * success: boolean
+        
+## Quick sell
+```javascript
+  apiClient.quickSell(itemDataId, function(error, response){ });
+```
+* itemDataId: number -> itemData.id
+* response: Object
+    * items: []
+        * id: number
+    * totalCredits: number

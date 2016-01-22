@@ -173,7 +173,7 @@ var apiClient = new futapi([options]);
 
 ## Transfermarket
 ```javascript
-  apiClient.getWatchlist(filter, function(error, response){ });
+  apiClient.getWatchlist({type: "player", lev: "gold", maskedDefId: 183907, pos: "CB" }, function(error, response){ });
 ```
 
 * filter 
@@ -188,7 +188,7 @@ var apiClient = new futapi([options]);
         * lev: string		-> bronze, silver, gold
         
     * playerSearchFilter extends searchFilterBase
-        * maskedDefId: number -> baseId
+        * maskedDefId: number 	-> baseId
         * rare: string 		-> SP
         * zone: string 		-> defence, midfield, attacker
         * pos: string		-> GK, CB, LB, RB, ...

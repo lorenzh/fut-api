@@ -174,7 +174,7 @@ var apiClient = new futapi([options]);
 
 ## Transfermarket
 ```javascript
-  apiClient.getWatchlist({type: "player", lev: "gold", maskedDefId: 183907, pos: "CB" }, function(error, response){ });
+  apiClient.search({type: "player", lev: "gold", maskedDefId: 183907, pos: "CB" }, function(error, response){ });
 ```
 
 * filter 
@@ -211,9 +211,28 @@ var apiClient = new futapi([options]);
 
 ## Place bid
 ```javascript
-  apiClient.placeBid(tradId, coins, function(error, response){ });
+  apiClient.placeBid(tradeId, coins, function(error, response){ });
 ```
 
 * tradId: number
 * coins: number
+* response: -> see tradepile response
+
+## List item
+```javascript
+  apiClient.listItem(itemDataId, startingBid, buyNowPrice, duration, function(error, response){ });
+```
+* itemDataId: number -> itemData.id
+* startingBid: number
+* buyNowPrice: number
+* duration: number -> seconds -> valid values 3600 = 1h, 10800 = 3h, 21600 = 6h, 43200 = 12h, 86400 = 1d, 259200 = 3d
+
+* response: 
+	* id: number
+	
+## Auction status
+```javascript
+  apiClient.getStatus([tradeIds], function(error, response){ });
+```
+* tradeIds: number[] -> tradeId
 * response: -> see tradepile response

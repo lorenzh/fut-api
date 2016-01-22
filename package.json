@@ -1,6 +1,6 @@
 {
   "name": "fut-api",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "fifa 16 web-app api",
   "main": "index.js",
   "scripts": {

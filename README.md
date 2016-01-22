@@ -16,20 +16,21 @@
 	* ~~get watchlist~~
 	* ~~get purchased items~~
 	* ~~transfermarket search~~
-	* place bid - in progress
-	* list on transfermarket
-	* ~~relist items~~
-	* get transfertiems update
+	* ~~place bid~~ -> test
+	* ~~list on transfermarket~~ -> test
+	* ~~relist items~~ 
+	* ~~get transferitems update~~ -> test
 	* send items to watchlist
 	* send items to tradepile
 * basic functions
 	* calculate vaild price / is price vaild
 	* calculate next lower price
 	* calculate next higher price
-	* get baseId
+	* calculate baseId
     * get clubname by id
     * get team name by id
     * get nation name by id
+    * get price range for item
 
 ## Usage
 ### Create a new instance
@@ -206,4 +207,13 @@ var apiClient = new futapi([options]);
     * playerStyleSearchFilter extends consumableFilter
         * playStyle: number	-> playerStyleId
     
+* response: -> see tradepile response
+
+## Place bid
+```javascript
+  apiClient.placeBid(tradId, coins, function(error, response){ });
+```
+
+* tradId: number
+* coins: number
 * response: -> see tradepile response

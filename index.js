@@ -84,7 +84,7 @@ module.exports = function(options){
   };
   
   futApi.prototype.relist = function(cb){
-      sendRequest(urls.api.relist,"PUT", cb);
+      sendRequest(urls.api.relist,{xHttpMethod: "PUT"}, cb);
   };
   
   futApi.prototype.search = function(filter,cb){
@@ -99,6 +99,56 @@ module.exports = function(options){
       sendRequest(urls.api.transfermarket + toUrlParameters(defaultFilter), cb);
   }
   
+    
+  futApi.prototype.placeBid = function(tradeId, bid, cb){
+      var tId = 0;
+      var bData = {"bid":bid};
+      
+      if(__.isNumber(tradeId))
+        tId = tradeId;
+      else if(__.isObject(tradeId) && tradeId.tradeId && __.isNumber(tradeId.tradeId))
+        tId = tradeId.tradeId;
+      
+      if(tId === 0) return cb(new Error("Tradid is value is not allowed."));
+      
+      sendRequest(utils.format(urls.api.placebid,[tId]),
+      {
+            xHttpMethod: "PUT", 
+            body: bData
+      }, cb);
+  }
+  
+  futApi.prototype.listItem = function(itemDataId, startingBid, buyNowPrice, duration, cb){
+      
+      // duration: number -> seconds -> valid values 3600 = 1h, 10800 = 3h, 21600 = 6h, 43200 = 12h, 86400 = 1d, 259200 = 3d
+      // TODO: function to validate duration or parse duration
+      // TODO: function to validate buyNowPrice and startingBid
+      // TODO: check if price in price range
+      // if duration or price is invalid return error
+      
+      var data = {
+          "duration": duration,
+          "itemData": { "id":itemDataId} ,
+          "buyNowPrice": buyNowPrice,
+          "startingBid": startingBid
+      };
+      
+      sendRequest(urls.api.listItem,{
+          xHttpMethod: "POST",
+          body: data 
+      }, cb);
+  };
+  
+  futApi.prototype.getStatus = function(tradIds, cb){
+      var urlParameters = "tradeIds=";
+            
+      for(var i = 0; i < tradIds.length ; i++)
+          urlParameters += tradIds[i] + "%2c";
+
+      sendRequest(urls.api.status + urlParameters.substr(0,urlParameters.length - 3), cb);
+  }
+  
+  
   function toUrlParameters(obj){
       var str = "";
       var keys = Object.keys(obj);
@@ -108,23 +158,29 @@ module.exports = function(options){
       return str.substr(0, str.length - 1);
   }
   
-  function sendRequest(url,xHttpMethod,cb){
+  function sendRequest(url,options,cb){
+      var defaultOptions = {
+          xHttpMethod: "GET",
+          headers: {}
+      }
+
+      if(__.isFunction(options)){
+        cb = options;        
+      }
+      else if(__.isObject(options)) {
+          defaultOptions = __.extend(defaultOptions,options);
+      }
       
-      var validXHttpMethod = ["GET","PUT"];
+      defaultOptions.headers["X-HTTP-Method-Override"] = defaultOptions.xHttpMethod;
+      delete defaultOptions.xHttpMethod;
       
-      var xhttp = xHttpMethod || "GET" ;
-      xhttp = validXHttpMethod.indexOf(xhttp) >= 0 ? xhttp : "GET";
-            
-      var rcb = cb || xHttpMethod;
-      rcb = __.isFunction(rcb) ? rcb : function(e,r){};
-      
-      loginResponse.apiRequest.post(url,{
-          headers: { "X-HTTP-Method-Override": xhttp }
-      },function(error, response, body){
+      loginResponse.apiRequest.post(url,
+      defaultOptions,
+      function(error, response, body){
           if(error) return cb(error,null);
           if(response.statusCode == 404) return cb(new Error(response.statusMessage),null);
           if(utils.isApiMessage(body)) cb(new Error(JSON.stringify(body)), null);
-          rcb(null,body);
+          cb(null,body);
       });
   }
 

@@ -3,13 +3,6 @@
 [![NPM](https://nodei.co/npm/fut-api.png)](https://nodei.co/npm/fut-api/)
 
 ## ToDo's
-* implement the Login
-	* ~~login~~
-	* ~~send the two factor code~~
-	* ~~cancel the authentication update~~
-	* ~~extract the hash funktion from the Fifa - WebApp~~
-	* ~~get/set cookieJar~~
-	* ~~check if secret is required~~
 * implement the API requests
 	* ~~get credits~~
 	* ~~get tradepile~~

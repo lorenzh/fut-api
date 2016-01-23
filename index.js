@@ -31,7 +31,6 @@ module.exports = function(options){
                 console.log("You have to sign in");
               }
               else{
-                console.log(result);
                 loginResponse = result;
                 if(defaultOptions.saveCookie && defaultOptions.saveCookiePath)
                 {

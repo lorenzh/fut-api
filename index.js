@@ -26,6 +26,24 @@ module.exports = function(options){
             fs.accessSync(defaultOptions.saveCookiePath, fs.R_OK | fs.W_OK);
             var jsonString = fs.readFileSync(defaultOptions.saveCookiePath,"utf8");
             login.setCookieJarJSON(JSON.parse(jsonString));
+            login.existinglogin(function(error, result){
+              if (error){
+                console.log("You have to sign in");
+              }
+              else{
+                loginResponse = result;
+                if(defaultOptions.saveCookie && defaultOptions.saveCookiePath)
+                {
+                    fs.writeFile(defaultOptions.saveCookiePath, 
+                        JSON.stringify(login.getCookieJarJSON()), 
+                        "utf8", 
+                        function(saveError){
+                            if(saveError) throw saveError;
+                                   
+                            });
+                }
+              }
+            });
           }
           catch(e){  }
       }
@@ -44,7 +62,6 @@ module.exports = function(options){
   futApi.prototype.setCookieJarJSON = function(json){
       login.setCookieJarJSON(json);
   };
-
   futApi.prototype.login = function(email, password, secret, tfCodeCb, loginCb){
     login.login(email, password, secret, tfCodeCb, function(error, result){
       if(error)

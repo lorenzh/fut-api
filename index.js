@@ -1,9 +1,9 @@
 /*jslint node: true */
 "use strict";
+var utils = require("./lib/utils");
 
-module.exports = function(options){
+var futapi = function(options){
   var __ = require("underscore");
-  var utils = require("./lib/utils");
   var urls = require("./lib/urls");
   var fs = require("fs");
   var defaultOptions = {
@@ -45,8 +45,8 @@ module.exports = function(options){
       login.setCookieJarJSON(json);
   };
 
-  futApi.prototype.login = function(email, password, secret, tfCodeCb, loginCb){
-    login.login(email, password, secret, tfCodeCb, function(error, result){
+  futApi.prototype.login = function(email, password, secret, platform, tfCodeCb, loginCb){
+    login.login(email, password, secret,platform, tfCodeCb, function(error, result){
       if(error)
         loginCb(error);
       else {
@@ -186,3 +186,11 @@ module.exports = function(options){
 
   return new futApi();
 };
+
+
+futapi.isPriceValid = utils.isPriceValid;
+futapi.calculateValidPrice = utils.calculateValidPrice;
+futapi.calculateNextLowerPrice = utils.calculateNextLowerPrice;
+futapi.calculateNextHigherPrice = utils.calculateNextHigherPrice;
+
+module.exports = futapi;

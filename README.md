@@ -1,31 +1,9 @@
-# fut-api - FIFA 16
+# fut-api - FIFA 16 - unofficial
 
 [![NPM](https://nodei.co/npm/fut-api.png)](https://nodei.co/npm/fut-api/)
 
 ## ToDo's
-* implement the Login
-	* ~~login~~
-	* ~~send the two factor code~~
-	* ~~cancel the authentication update~~
-	* ~~extract the hash funktion from the Fifa - WebApp~~
-	* ~~get/set cookieJar~~
-	* ~~check if secret is required~~
-* implement the API requests
-	* ~~get credits~~
-	* ~~get tradepile~~
-	* ~~get watchlist~~
-	* ~~get purchased items~~
-	* ~~transfermarket search~~
-	* ~~place bid~~ -> test
-	* ~~list on transfermarket~~ -> test
-	* ~~relist items~~ 
-	* ~~get transferitems update~~ -> test
-	* send items to watchlist
-	* send items to tradepile
 * basic functions
-	* calculate vaild price / is price vaild
-	* calculate next lower price
-	* calculate next higher price
 	* calculate baseId
     * get clubname by id
     * get team name by id
@@ -52,7 +30,7 @@ var apiClient = new futapi([options]);
   }
 
     
-    apiClient.login("username","password","secret", 
+    apiClient.login("username","password","secret", "platform"
     	twoFactorCodeCb,
     	function(error,response){
     	if(error) {
@@ -61,6 +39,7 @@ var apiClient = new futapi([options]);
     	console.log("logged in.");
     });
 ```
+* platform: "ps3","ps4","pc","x360","xone"
 
 ## Credits
 
@@ -174,7 +153,7 @@ var apiClient = new futapi([options]);
 
 ## Transfermarket
 ```javascript
-  apiClient.getWatchlist({type: "player", lev: "gold", maskedDefId: 183907, pos: "CB" }, function(error, response){ });
+  apiClient.search({type: "player", lev: "gold", maskedDefId: 183907, pos: "CB" }, function(error, response){ });
 ```
 
 * filter 
@@ -211,9 +190,98 @@ var apiClient = new futapi([options]);
 
 ## Place bid
 ```javascript
-  apiClient.placeBid(tradId, coins, function(error, response){ });
+  apiClient.placeBid(tradeId, coins, function(error, response){ });
 ```
 
 * tradId: number
 * coins: number
 * response: -> see tradepile response
+
+## List item
+```javascript
+  apiClient.listItem(itemDataId, startingBid, buyNowPrice, duration, function(error, response){ });
+```
+* itemDataId: number -> itemData.id
+* startingBid: number
+* buyNowPrice: number
+* duration: number -> seconds -> valid values 3600 = 1h, 10800 = 3h, 21600 = 6h, 43200 = 12h, 86400 = 1d, 259200 = 3d
+
+* response: 
+	* id: number
+	
+## Auction status
+```javascript
+  apiClient.getStatus([tradeIds], function(error, response){ });
+```
+* tradeIds: number[] -> tradeId
+* response: -> see tradepile response
+
+## Add to watchlist
+```javascript
+  apiClient.addToWatchlist(tradeId, function(error){ });
+```
+* tradeId: number -> tradeId
+
+## remove from watchlist
+```javascript
+  apiClient.removeFromWatchlist(tradeId, function(error){ });
+```
+* tradeId: number -> tradeId
+
+## send to tradepile
+```javascript
+  apiClient.sendToTradepile(itemDataId, function(error, response){ });
+```
+* itemDataId: number -> itemData.id
+* response: Object
+    * itemData: []
+        * id: number
+        * pile: string
+        * success: boolean
+        
+## send to tradepile
+```javascript
+  apiClient.sendToClub(itemDataId, function(error, response){ });
+```
+* itemDataId: number -> itemData.id
+* response: Object
+    * itemData: []
+        * id: number
+        * pile: string
+        * success: boolean
+        
+## Quick sell
+```javascript
+  apiClient.quickSell(itemDataId, function(error, response){ });
+```
+* itemDataId: number -> itemData.id
+* response: Object
+    * items: []
+        * id: number
+    * totalCredits: number
+    
+## Functions
+
+### Validate price/coins
+```javascript
+    futapi.isPriceValid(coins);
+```
+returns true or false
+
+### Calculate valid price/coins
+```javascript
+    futapi.calculateValidPrice(coins);
+```
+returns valid coins amount
+
+### Calculate next lower price/coins
+```javascript
+    futapi.calculateNextLowerPrice(coins);
+```
+returns next lower coins after calculating valid price
+
+### Calculate next higher price/coins
+```javascript
+    futapi.calculateNextHigherPrice(coins);
+```
+returns next higher coins after calculating valid price

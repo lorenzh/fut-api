@@ -214,5 +214,5 @@ futapi.isPriceValid = utils.isPriceValid;
 futapi.calculateValidPrice = utils.calculateValidPrice;
 futapi.calculateNextLowerPrice = utils.calculateNextLowerPrice;
 futapi.calculateNextHigherPrice = utils.calculateNextHigherPrice;
-
+futapi.getBaseId = utils.getBaseId;
 module.exports = futapi;

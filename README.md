@@ -66,7 +66,7 @@ var apiClient = new futapi([options]);
 * response: Object
     * entries: []
         * value: number
-        * key: number 
+        * key: number -> 2 == Tradepile, 4 == Watchlist
 
 ## Tradepile
 ```javascript

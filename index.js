@@ -146,8 +146,30 @@ var futapi = function(options){
           urlParameters += tradIds[i] + "%2c";
 
       sendRequest(urls.api.status + urlParameters.substr(0,urlParameters.length - 3), cb);
+  };
+  
+  futApi.prototype.addToWatchlist = function(tradeId, cb){
+      var data = {"auctionInfo":[{"id":tradeId}]};
+      sendRequest(urls.api.watchlist+ utils.format("?tradeId={0}",[tradeId]), {  xHttpMethod: "PUT", body: data }, cb);
+  };
+  
+  futApi.prototype.removeFromWatchlist = function(tradeId, cb){
+      sendRequest(urls.api.watchlist  + utils.format("?tradeId={0}",[tradeId]), {  xHttpMethod: "DELETE" }, cb);
   }
   
+  futApi.prototype.sendToTradepile = function(itemDataId, cb){
+      var data = {"itemData":[{"pile":"trade","id":itemDataId}]};
+      sendRequest(urls.api.item, {  xHttpMethod: "PUT", body: data }, cb);
+  };
+  
+  futApi.prototype.sendToClub = function(itemDataId, cb){
+      var data = {"itemData":[{"pile":"club","id":itemDataId}]};
+      sendRequest(urls.api.item, {  xHttpMethod: "PUT", body: data }, cb);
+  };
+  
+  futApi.prototype.quickSell = function(itemDataId, cb ){
+      sendRequest(urls.api.item  + utils.format("/{0}",[itemDataId]), {  xHttpMethod: "DELETE" }, cb);
+  };
   
   function toUrlParameters(obj){
       var str = "";

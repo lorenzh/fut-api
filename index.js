@@ -1,9 +1,9 @@
 /*jslint node: true */
 "use strict";
+var utils = require("./lib/utils");
 
-module.exports = function(options){
+var futapi = function(options){
   var __ = require("underscore");
-  var utils = require("./lib/utils");
   var urls = require("./lib/urls");
   var fs = require("fs");
   var defaultOptions = {
@@ -62,8 +62,14 @@ module.exports = function(options){
   futApi.prototype.setCookieJarJSON = function(json){
       login.setCookieJarJSON(json);
   };
+<<<<<<< HEAD
   futApi.prototype.login = function(email, password, secret, tfCodeCb, loginCb){
     login.login(email, password, secret, tfCodeCb, function(error, result){
+=======
+
+  futApi.prototype.login = function(email, password, secret, platform, tfCodeCb, loginCb){
+    login.login(email, password, secret,platform, tfCodeCb, function(error, result){
+>>>>>>> 6b71bd75d9c033159d7e1d853cf446737325ac83
       if(error)
         loginCb(error);
       else {
@@ -163,8 +169,30 @@ module.exports = function(options){
           urlParameters += tradIds[i] + "%2c";
 
       sendRequest(urls.api.status + urlParameters.substr(0,urlParameters.length - 3), cb);
+  };
+  
+  futApi.prototype.addToWatchlist = function(tradeId, cb){
+      var data = {"auctionInfo":[{"id":tradeId}]};
+      sendRequest(urls.api.watchlist+ utils.format("?tradeId={0}",[tradeId]), {  xHttpMethod: "PUT", body: data }, cb);
+  };
+  
+  futApi.prototype.removeFromWatchlist = function(tradeId, cb){
+      sendRequest(urls.api.watchlist  + utils.format("?tradeId={0}",[tradeId]), {  xHttpMethod: "DELETE" }, cb);
   }
   
+  futApi.prototype.sendToTradepile = function(itemDataId, cb){
+      var data = {"itemData":[{"pile":"trade","id":itemDataId}]};
+      sendRequest(urls.api.item, {  xHttpMethod: "PUT", body: data }, cb);
+  };
+  
+  futApi.prototype.sendToClub = function(itemDataId, cb){
+      var data = {"itemData":[{"pile":"club","id":itemDataId}]};
+      sendRequest(urls.api.item, {  xHttpMethod: "PUT", body: data }, cb);
+  };
+  
+  futApi.prototype.quickSell = function(itemDataId, cb ){
+      sendRequest(urls.api.item  + utils.format("/{0}",[itemDataId]), {  xHttpMethod: "DELETE" }, cb);
+  };
   
   function toUrlParameters(obj){
       var str = "";
@@ -203,3 +231,11 @@ module.exports = function(options){
 
   return new futApi();
 };
+
+
+futapi.isPriceValid = utils.isPriceValid;
+futapi.calculateValidPrice = utils.calculateValidPrice;
+futapi.calculateNextLowerPrice = utils.calculateNextLowerPrice;
+futapi.calculateNextHigherPrice = utils.calculateNextHigherPrice;
+futapi.getBaseId = utils.getBaseId;
+module.exports = futapi;

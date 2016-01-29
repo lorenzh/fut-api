@@ -96,6 +96,9 @@ var futapi = function(options){
       
       defaultFilter = __.extend(defaultFilter, filter);
       
+      if(defaultFilter.maskedDefId)
+        defaultFilter.maskedDefId = utils.getBaseId(defaultFilter.maskedDefId);
+      
       sendRequest(urls.api.transfermarket + toUrlParameters(defaultFilter), cb);
   }
   
@@ -103,6 +106,9 @@ var futapi = function(options){
   futApi.prototype.placeBid = function(tradeId, bid, cb){
       var tId = 0;
       var bData = {"bid":bid};
+      
+      if(!utils.isPriceValid(bid))
+        return cb(new Error("Price is invalid."));
       
       if(__.isNumber(tradeId))
         tId = tradeId;
@@ -120,11 +126,12 @@ var futapi = function(options){
   
   futApi.prototype.listItem = function(itemDataId, startingBid, buyNowPrice, duration, cb){
       
-      // duration: number -> seconds -> valid values 3600 = 1h, 10800 = 3h, 21600 = 6h, 43200 = 12h, 86400 = 1d, 259200 = 3d
-      // TODO: function to validate duration or parse duration
-      // TODO: function to validate buyNowPrice and startingBid
-      // TODO: check if price in price range
-      // if duration or price is invalid return error
+      if([3600, 10800, 21600, 43200, 86400, 259200].indexOf(duration) < 0) 
+        return cb(new Error("Duration is invalid."));
+      
+      if(!utils.isPriceValid(startingBid) || !utils.isPriceValid(buyNowPrice))
+        return cb(new Error("Starting bid or buy now price is invalid."));
+      
       
       var data = {
           "duration": duration,

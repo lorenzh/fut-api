@@ -2,14 +2,6 @@
 
 [![NPM](https://nodei.co/npm/fut-api.png)](https://nodei.co/npm/fut-api/)
 
-## ToDo's
-* basic functions
-	* calculate baseId
-    * get clubname by id
-    * get team name by id
-    * get nation name by id
-    * get price range for item
-
 ## Usage
 ### Create a new instance
 ```javascript

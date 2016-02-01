@@ -157,15 +157,15 @@ var futapi = function(options){
   
   futApi.prototype.addToWatchlist = function(tradeId, cb){
       var data = {"auctionInfo":[{"id":tradeId}]};
-      sendRequest(urls.api.watchlist+ utils.format("?tradeId={0}",tradeId), {  xHttpMethod: "PUT", body: data }, cb);
+      sendRequest(urls.api.watchlist+ utils.format("?tradeId={0}",[tradeId]), {  xHttpMethod: "PUT", body: data }, cb);
   };
   
   futApi.prototype.removeFromWatchlist = function(tradeId, cb){
-      sendRequest(urls.api.watchlist  + utils.format("?tradeId={0}",tradeId), {  xHttpMethod: "DELETE" }, cb);
+      sendRequest(urls.api.watchlist  + utils.format("?tradeId={0}",[tradeId]), {  xHttpMethod: "DELETE" }, cb);
   }
   
   futApi.prototype.removeFromTradepile = function(tradeId, cb){
-      sendRequest(utils.format(urls.api.removeFromTradepile,tradeId), {  xHttpMethod: "DELETE" }, cb);
+      sendRequest(utils.format(urls.api.removeFromTradepile,[tradeId]), {  xHttpMethod: "DELETE" }, cb);
   }
   
   futApi.prototype.sendToTradepile = function(itemDataId, cb){

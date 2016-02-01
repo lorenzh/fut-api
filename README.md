@@ -214,6 +214,12 @@ var apiClient = new futapi([options]);
 ```
 * tradeId: number -> tradeId
 
+## remove from tradepile
+```javascript
+  apiClient.removeFromTradepile(tradeId, function(error){ });
+```
+* tradeId: number -> tradeId
+
 ## remove from watchlist
 ```javascript
   apiClient.removeFromWatchlist(tradeId, function(error){ });

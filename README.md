@@ -1,4 +1,4 @@
-# fut-api - FIFA 16 - unofficial
+# fut-api - FIFA 17 - unofficial
 
 [![NPM](https://nodei.co/npm/fut-api.png)](https://nodei.co/npm/fut-api/)
 
@@ -22,13 +22,16 @@ var apiClient = new futapi([options]);
   }
 
     
-    apiClient.login("username","password","secret", "platform"
+    apiClient.login("username","password","secret", "platform",
     	twoFactorCodeCb,
     	function(error,response){
     	if(error) {
         	return console.log("Unable to login.");
         }
     	console.log("logged in.");
+		
+		apiClient.getCredits(function(error, response){ });
+		
     });
 ```
 * platform: "ps3","ps4","pc","x360","xone"

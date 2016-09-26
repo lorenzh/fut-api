@@ -1,6 +1,6 @@
 {
   "name": "fut-api",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "fifa 16 web-app api",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,7 @@
   },
   "keywords": [
     "fifa",
-    "16",
+    "17",
     "ultimate-team",
     "api",
     "fut"

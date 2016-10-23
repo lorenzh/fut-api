@@ -82,6 +82,10 @@ var futapi = function(options){
   futApi.prototype.getPilesize = function(cb){
       sendRequest(urls.api.pilesize, cb);
   };
+    
+  futApi.prototype.getPurchased = function(cb){
+      sendRequest(urls.api.purchased, cb);
+  };
   
   futApi.prototype.relist = function(cb){
       sendRequest(urls.api.relist,{xHttpMethod: "PUT"}, cb);

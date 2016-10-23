@@ -146,6 +146,14 @@ var apiClient = new futapi([options]);
 
 * response: -> see tradepile response
 
+## Purchased Items
+```javascript
+  apiClient.getPurchased(function(error, response){ });
+```
+
+* response: Object
+    * itemData: -> see tradepile response and its itemData object
+
 ## Transfermarket
 ```javascript
   apiClient.search({type: "player", lev: "gold", maskedDefId: 183907, pos: "CB" }, function(error, response){ });
